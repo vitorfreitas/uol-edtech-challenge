@@ -13,7 +13,7 @@ const GlobalStyles = createGlobalStyle`
   
   html {
     font-size: 62.5%;
-    font-family: Arial, sans-serif;
+    font-family: Roboto, Arial, sans-serif;
   }
   
   body {
