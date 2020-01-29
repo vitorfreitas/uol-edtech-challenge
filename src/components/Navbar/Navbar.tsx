@@ -13,12 +13,10 @@ const Container = styled.nav`
   align-items: center;
 `
 
-const Navbar: React.FC<{ onToggle: () => void }> = ({ onToggle }) => {
-  return (
-    <Container>
-      <Hamburger onClick={onToggle} />
-    </Container>
-  )
-}
+const Navbar: React.FC<{ onToggle: () => void }> = ({ onToggle }) => (
+  <Container>
+    <Hamburger onClick={onToggle} />
+  </Container>
+)
 
 export { Navbar }
