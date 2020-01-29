@@ -7,24 +7,26 @@ import { ReactComponent as StarIcon } from 'assets/star-empty.svg'
 import { ReactComponent as MailIcon } from 'assets/envelop.svg'
 import { ReactComponent as ArrowDown } from 'assets/chevron-down.svg'
 
-const Container = styled.nav`
-  left: 0;
-  top: 0;
-  height: 100%;
-  width: 25rem;
-  position: fixed;
-  transition: 0.5s all;
-  transform: translateX(0);
-  background: ${COLORS.primary};
+const Container = styled.nav<{ open?: boolean }>(
+  props => css`
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 25rem;
+    position: fixed;
+    transition: 0.5s all;
+    transform: translateX(${props.open ? 0 : '-25rem'});
+    background: ${COLORS.primary};
 
-  display: flex;
-  align-items: center;
-  flex-direction: column;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 
-  @media only screen and (max-width: 768px) {
-    transform: translateX(-25rem);
-  }
-`
+    @media only screen and (max-width: 768px) {
+      transform: translateX(-25rem);
+    }
+  `
+)
 
 const Heading = styled.header`
   width: 100%;
@@ -107,11 +109,11 @@ const DropdownListItem = styled.li<{ selected?: boolean }>(
   `
 )
 
-const Sidebar = () => {
+const Sidebar: React.FC<{ open: boolean }> = ({ open }) => {
   const [highlightDropdownIsOpen, setHighlightDropdownIsOpen] = useState(false)
 
   return (
-    <Container>
+    <Container open={open}>
       <Heading></Heading>
 
       <MenuList>
