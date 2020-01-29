@@ -14,12 +14,14 @@ const Container = styled.main<{ sidebarIsOpen?: boolean }>(
 const Root = () => {
   const [sidebarIsOpen, setSidebarIsOpen] = useState(true)
 
+  const toggleSidebar = () => setSidebarIsOpen(!sidebarIsOpen)
+
   return (
     <article>
       <Sidebar open={sidebarIsOpen} />
 
       <Container sidebarIsOpen={sidebarIsOpen}>
-        <Navbar />
+        <Navbar onToggle={toggleSidebar} />
         <Courses />
       </Container>
     </article>
