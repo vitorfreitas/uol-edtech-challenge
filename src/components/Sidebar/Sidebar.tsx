@@ -14,7 +14,7 @@ const Container = styled.nav<{ open?: boolean }>(
     height: 100%;
     width: 25rem;
     position: fixed;
-    transition: 0.5s all;
+    transition: 0.2s all;
     transform: translateX(${props.open ? 0 : '-25rem'});
     background: ${COLORS.primary};
 
