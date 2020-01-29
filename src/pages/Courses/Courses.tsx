@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled, { css } from 'styled-components'
 
 import { Title } from 'styles/typography'
@@ -7,6 +7,7 @@ import Button from 'components/Button'
 import Input from 'components/Input'
 import { contents } from 'mocks/data.json'
 import Dropdown from 'components/Dropdown'
+import Dialog from 'components/Dialog'
 
 const Container = styled.section`
   padding: 4rem 2rem;
@@ -64,6 +65,8 @@ interface Course {
 }
 
 const Courses: React.FC = () => {
+  const [selectedCourse, setSelectedCourse] = useState<Course | null>(null)
+
   const coursesList: Course[] = contents.reduce(
     (acc, content) => [
       ...acc,
@@ -76,47 +79,59 @@ const Courses: React.FC = () => {
   )
 
   const dropdownOptions = [
-    { label: 'Ordem X' },
-    { label: 'Ordem Y' },
-    { label: 'Ordem Z' }
+    { label: 'Empresa' },
+    { label: 'Maior qtd. de alunos' },
+    { label: 'Menor qtd. de alunos' },
+    { label: 'Mais recentes' },
+    { label: 'Mais antigos' }
   ]
 
   return (
-    <Container>
-      <Heading>
-        <HeadingText>Painel de cursos</HeadingText>
+    <>
+      <Container>
+        <Heading>
+          <HeadingText>Painel de cursos</HeadingText>
 
-        <Actions>
-          <Dropdown title='Ordernar por...' options={dropdownOptions} />
-          <Input placeholder='Pesquisar cursos ou empresas' />
-        </Actions>
-      </Heading>
+          <Actions>
+            <Dropdown title='Ordernar por...' options={dropdownOptions} />
+            <Input placeholder='Pesquisar cursos ou empresas' />
+          </Actions>
+        </Heading>
 
-      <Table cellSpacing={0}>
-        <thead>
-          <tr>
-            <TableHeading divider={8}>Empresa</TableHeading>
-            <TableHeading>Nome do curso</TableHeading>
-            <TableHeading divider={4}>Descrição</TableHeading>
-            <TableHeading align='center'>Num. de alunos</TableHeading>
-            <TableHeading align='right'>Edição e conteúdo</TableHeading>
-          </tr>
-        </thead>
-        <tbody>
-          {coursesList.map(course => (
+        <Table cellSpacing={0}>
+          <thead>
             <tr>
-              <TableData divider={8}>{course.company}</TableData>
-              <TableData>{course.Name}</TableData>
-              <TableData>{course.Description}</TableData>
-              <TableData align='center'>{course.Quantity}</TableData>
-              <TableData align='right'>
-                <Button>Ver descrição</Button>
-              </TableData>
+              <TableHeading divider={8}>Empresa</TableHeading>
+              <TableHeading>Nome do curso</TableHeading>
+              <TableHeading divider={4}>Descrição</TableHeading>
+              <TableHeading align='center'>Num. de alunos</TableHeading>
+              <TableHeading align='right'>Edição e conteúdo</TableHeading>
             </tr>
-          ))}
-        </tbody>
-      </Table>
-    </Container>
+          </thead>
+          <tbody>
+            {coursesList.map(course => (
+              <tr>
+                <TableData divider={8}>{course.company}</TableData>
+                <TableData>{course.Name}</TableData>
+                <TableData>{course.Description}</TableData>
+                <TableData align='center'>{course.Quantity}</TableData>
+                <TableData align='right'>
+                  <Button onClick={() => setSelectedCourse(course)}>
+                    Ver descrição
+                  </Button>
+                </TableData>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </Container>
+
+      <Dialog
+        open={!!selectedCourse}
+        content={selectedCourse?.Description ?? ''}
+        onClose={() => setSelectedCourse(null)}
+      />
+    </>
   )
 }
 

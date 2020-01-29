@@ -30,7 +30,7 @@ const Icon = styled(SearchIcon)`
 const Input: React.FC<{ placeholder: string }> = ({ placeholder }) => {
   return (
     <Container>
-      <StyledInput type='text' placeholder='Pesquisar por cursos ou empresas' />
+      <StyledInput type='text' placeholder={placeholder} />
       <Icon />
     </Container>
   )

@@ -16,8 +16,8 @@ const Container = styled.button`
   }
 `
 
-const Button: React.FC = ({ children }) => {
-  return <Container>{children}</Container>
+const Button: React.FC<{ onClick: () => void }> = ({ children, onClick }) => {
+  return <Container onClick={onClick}>{children}</Container>
 }
 
 export { Button }
