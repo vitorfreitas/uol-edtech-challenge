@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { COLORS } from 'styles/variables'
 import Hamburger from './Hamburger'
 
-const Container = styled.header`
+const Container = styled.nav`
   width: 100%;
   height: 6rem;
   padding: 0 2rem;
