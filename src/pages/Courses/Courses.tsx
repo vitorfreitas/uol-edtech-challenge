@@ -67,16 +67,21 @@ interface Course {
 const Courses: React.FC = () => {
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null)
 
-  const coursesList: Course[] = contents.reduce(
-    (acc, content) => [
-      ...acc,
-      ...(content.Courses.map(course => ({
-        company: content.Company,
-        ...course
-      })) as never[])
-    ],
-    []
-  )
+  const sortByName = (a: Course, b: Course) => a.company.localeCompare(b.company)
+
+  const coursesList: Course[] = contents
+    .reduce(
+      (acc, content) => [
+        ...acc,
+        ...(content.Courses.map(course => ({
+          company: content.Company,
+          ...course
+        })) as never[])
+      ],
+      []
+    )
+    .filter((course: Course) => course.Status === 'Active')
+    .sort(sortByName)
 
   const dropdownOptions = [
     { label: 'Empresa' },
