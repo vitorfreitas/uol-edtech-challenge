@@ -1,17 +1,31 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
+
 import { Title } from 'styles/typography'
 import { COLORS } from 'styles/variables'
-import { contents } from 'mocks/data.json'
 import Button from 'components/Button'
+import Input from 'components/Input'
+import { contents } from 'mocks/data.json'
+import Dropdown from 'components/Dropdown'
 
 const Container = styled.section`
   padding: 4rem 2rem;
 `
 
-const Heading = styled.header``
+const Heading = styled.header`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`
 
-const Inputs = styled.div``
+const Actions = styled.div`
+  display: flex;
+
+  & > *:not(:last-of-type) {
+    margin-right: 1rem;
+  }
+`
 
 const HeadingText = styled.h1(() => Title)
 
@@ -28,10 +42,7 @@ const TableData = styled.td<{ align?: string; divider?: number }>(
     font-size: 1.4rem;
     width: calc(100% / ${divider});
     text-align: ${align || 'left'};
-
-    &:not(:last-of-type) {
-      border-bottom: 1px solid #eee;
-    }
+    border-bottom: 1px solid #eee;
   `
 )
 
@@ -64,19 +75,29 @@ const Courses: React.FC = () => {
     []
   )
 
+  const dropdownOptions = [
+    { label: 'Ordem X' },
+    { label: 'Ordem Y' },
+    { label: 'Ordem Z' }
+  ]
+
   return (
     <Container>
       <Heading>
         <HeadingText>Painel de cursos</HeadingText>
-        <Inputs></Inputs>
+
+        <Actions>
+          <Dropdown title='Ordernar por...' options={dropdownOptions} />
+          <Input placeholder='Pesquisar cursos ou empresas' />
+        </Actions>
       </Heading>
 
       <Table cellSpacing={0}>
         <thead>
           <tr>
-            <TableHeading>Empresa</TableHeading>
+            <TableHeading divider={8}>Empresa</TableHeading>
             <TableHeading>Nome do curso</TableHeading>
-            <TableHeading>Descrição</TableHeading>
+            <TableHeading divider={4}>Descrição</TableHeading>
             <TableHeading align='center'>Num. de alunos</TableHeading>
             <TableHeading align='right'>Edição e conteúdo</TableHeading>
           </tr>
@@ -84,12 +105,12 @@ const Courses: React.FC = () => {
         <tbody>
           {coursesList.map(course => (
             <tr>
-              <TableData>{course.company}</TableData>
+              <TableData divider={8}>{course.company}</TableData>
               <TableData>{course.Name}</TableData>
-              <TableData divider={4}>{course.Description}</TableData>
+              <TableData>{course.Description}</TableData>
               <TableData align='center'>{course.Quantity}</TableData>
               <TableData align='right'>
-                <Button>Button</Button>
+                <Button>Ver descrição</Button>
               </TableData>
             </tr>
           ))}

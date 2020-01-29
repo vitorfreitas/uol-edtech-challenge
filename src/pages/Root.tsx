@@ -17,14 +17,14 @@ const Root = () => {
   const toggleSidebar = () => setSidebarIsOpen(!sidebarIsOpen)
 
   return (
-    <article>
+    <div>
       <Sidebar open={sidebarIsOpen} />
 
       <Container sidebarIsOpen={sidebarIsOpen}>
         <Navbar onToggle={toggleSidebar} />
         <Courses />
       </Container>
-    </article>
+    </div>
   )
 }
 
