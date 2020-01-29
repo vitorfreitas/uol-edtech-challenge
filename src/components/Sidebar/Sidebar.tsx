@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled, { css } from 'styled-components'
 import { COLORS } from 'styles/variables'
 import { ReactComponent as ChartIcon } from 'assets/stats-bars.svg'
@@ -21,10 +21,6 @@ const Container = styled.nav<{ open?: boolean }>(
     display: flex;
     align-items: center;
     flex-direction: column;
-
-    @media only screen and (max-width: 768px) {
-      transform: translateX(-25rem);
-    }
   `
 )
 
@@ -109,48 +105,41 @@ const DropdownListItem = styled.li<{ selected?: boolean }>(
   `
 )
 
-const Sidebar: React.FC<{ open: boolean }> = ({ open }) => {
-  const [highlightDropdownIsOpen, setHighlightDropdownIsOpen] = useState(false)
+const Sidebar: React.FC<{ open: boolean }> = ({ open }) => (
+  <Container open={open}>
+    <Heading></Heading>
 
-  return (
-    <Container open={open}>
-      <Heading></Heading>
+    <MenuList>
+      <MenuListItem>
+        <ChartIcon />
+        Grupos colaborativos
+      </MenuListItem>
 
-      <MenuList>
-        <MenuListItem>
-          <ChartIcon />
-          Grupos colaborativos
-        </MenuListItem>
+      <MenuListItem>
+        <MailIcon />
+        Central de mensagens
+      </MenuListItem>
 
-        <MenuListItem>
-          <MailIcon />
-          Central de mensagens
-        </MenuListItem>
+      <MenuListItem selected={true}>
+        <StarIcon />
+        Cursos em destaque
+        <ArrowDown />
+      </MenuListItem>
 
-        <MenuListItem
-          selected={highlightDropdownIsOpen}
-          onClick={() => setHighlightDropdownIsOpen(!highlightDropdownIsOpen)}
-        >
-          <StarIcon />
-          Cursos em destaque
-          <ArrowDown />
-        </MenuListItem>
+      <Dropdown open={true}>
+        <DropdownList>
+          <DropdownListItem>Relatórios</DropdownListItem>
+          <DropdownListItem selected>Painel de cursos</DropdownListItem>
+          <DropdownListItem>Categorias</DropdownListItem>
+        </DropdownList>
+      </Dropdown>
 
-        <Dropdown open={highlightDropdownIsOpen}>
-          <DropdownList>
-            <DropdownListItem>Relatórios</DropdownListItem>
-            <DropdownListItem selected>Painel de cursos</DropdownListItem>
-            <DropdownListItem>Categorias</DropdownListItem>
-          </DropdownList>
-        </Dropdown>
-
-        <MenuListItem>
-          <HistoryIcon />
-          Histórico
-        </MenuListItem>
-      </MenuList>
-    </Container>
-  )
-}
+      <MenuListItem>
+        <HistoryIcon />
+        Histórico
+      </MenuListItem>
+    </MenuList>
+  </Container>
+)
 
 export { Sidebar }
