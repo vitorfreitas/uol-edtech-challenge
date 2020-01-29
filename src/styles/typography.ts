@@ -2,7 +2,9 @@ import { COLORS } from './variables'
 
 export const Title = `
   color: ${COLORS.dark};
-  font-size: 3.2rem;
+  font-size: 2.7rem;
+  font-weight: bold;
+  letter-spacing: .5px;
 `
 
 export const Subtitle = `
